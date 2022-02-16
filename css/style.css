@@ -27,17 +27,18 @@ body{
 ul{
     list-style: none;
 }
-.main-content{
+
+.section{
     background: var(--bg-black-900);
     min-height: 100vh;
     display: block;
     position: flex;
-    padding-top: 90px;
+    padding-top: 50px;
        /* padding-bottom: 4%; */
-    left:0;
-    top: 0;
-    right: 0;
     opacity: 1;
+}
+.hidden{
+    display: none ! important;
 }
 .padd-15{
     padding-left: 15px;
@@ -48,8 +49,23 @@ ul{
     width: 100%;
     margin-left: 70px;
     margin-right: 70px;
-    padding-bottom: 5%;
+    /* padding-bottom: 0%; */
     /* background: yellowgreen; */
+}
+.section .container{
+    /* padding-top: 10px;    I can remove it */
+    padding-bottom: 70px;
+}
+.section-title{
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-bottom: 60px;
+}
+.section-title h2{
+    font-size: 40px;
+    color: var(--text-black-900);
+    font-weight: 700;
+    position: relative;
 }
 .row{
     display: flex;
@@ -59,6 +75,25 @@ ul{
     position: relative;
     /* background: blue */
 
+}
+.section-title h2::before{
+    content: '';
+    height: 4px;
+    width: 130px;
+    background-color: var(--skin-color);
+    position: absolute;
+    top: 100%;
+    left:0;
+}
+.section-title h2::after{
+    content: '';
+    height: 4px;
+    width: 80px;
+    background-color: var(--skin-color);
+    position: absolute;
+    top: 100%;
+    left:0;
+    margin-top: 9px;
 }
 .btn{
     font-size: 16px;
@@ -74,6 +109,9 @@ ul{
 }
 .btn:hover{
     transform: scale(1.03);
+}
+.shadow-dark{
+    box-shadow: 0 0 20px rgba(48,46,77,0.15)
 }
 nav{
     width: 100%;
@@ -109,7 +147,7 @@ nav .logo a span {
 nav ul {
     float: right;
     margin-right: 0px;
-    padding-right: 25px;
+    padding-right: 30px;
 }
 nav ul li {
     display: inline-block;
@@ -154,21 +192,21 @@ nav ul li a.active-login{
     color: var(--text-black-900);
 }
 .home .home-info{
-    flex: 0 0 60%;
-    max-width: 60%;
+    flex: 0 0 55%;
+    max-width: 55%;
 }
 h3.hello{
-    font-size: 30px;
+    font-size: 27px;
     margin: 100px 0 15px 0;
 }
 h3.hello span{
     font-family: 'Clicker Script', cursive;
-    font-size: 32px;
+    font-size: 29px;
     font-weight: 700;
     /* color: var(--skin-color); */
 }
 h3.my-proffession{
-    font-size: 32px;
+    font-size: 29px;
     margin: 15px 0;
 }
 .typing{
@@ -176,7 +214,7 @@ h3.my-proffession{
 }
 .home-info p{
     margin-bottom: 120px;
-    font-size: 22px;
+    font-size: 19px;
     color: var(--text-black-700)
 }
 .home .home-img{
@@ -195,7 +233,7 @@ h3.my-proffession{
     border-bottom: 13px solid var(--skin-color);
     border-right: 13px solid var(--skin-color);
     right: -50px;
-    bottom: -10px;
+    bottom: -50px;
 }
 .home-img::before{
     content: "";
@@ -213,7 +251,244 @@ h3.my-proffession{
     width: 240px;
 }
 
+/* About page */
 
+.about .about-content{
+    flex: 0 0 100%;
+    max-width: 100%;
+    /* background-color: red; */
+}
+.about .about-content .about-text{
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+.about .about-content .about-text h3{
+    font-size: 24px;
+    margin-bottom: 15px;
+    font-weight: 700;
+    color: var(--text-black-900)
+}
+.about .about-content .about-text h3 span{
+    color: var(--skin-color);
+
+}
+.about .about-content .about-text p{
+    font: size 16px;
+    line-height: 25px;
+    color: var(--text-black-700);
+}
+.about .about-content .personal-info{
+    margin-top: 30px;
+    flex: 0 0 60%;
+    max-width: 60%;
+    /* background-color:red; */
+}
+.about .about-content .personal-info .info-item{
+    flex: 0 0 50%;
+    max-width: 50%;
+    /* background-color:red; */
+    line-height: 40px;
+}
+.about .about-content .personal-info .info-item p{
+    font-weight: 600;
+    /* padding: 10px 0; */
+    font-size: 16px;
+    color: var(--text-black-900);
+    border-bottom: 1px solid var(--bg-black-50);
+}
+.about .about-content .personal-info .info-item p span{
+    font-weight: 400;
+    color: var(--text-black-700);
+    margin-left: 5px;
+    display:inline-block;
+
+}
+.about .about-content .personal-info .buttons{
+    padding-top: 30px;
+}
+.about .about-content .personal-info .buttons .btn{
+    margin-right: 50px;
+    margin-top: 10px;
+}
+.about .about-content .skills{
+    margin-top: 30px;
+    flex: 0 0 40%;
+    max-width: 40%;
+    /* background-color:green; */
+}
+.about .about-content .skills .skill-item{
+    flex: 0 0 100%;
+    max-width: 100%;
+    /* background-color: red; */
+}
+.about .about-content .skills .skill-item h5{
+    line-height: 30px;
+    font-size: 16px;
+    color: var(--text-black-900);
+    font-weight: 600;
+    
+}
+.about .about-content .skills .skill-item .progress{
+    background-color: var(--bg-black-50);
+    height: 7px;
+    width: 100%;
+    border-radius: 4px;
+    position: relative;
+}
+.about .about-content .skills .skill-item{
+    margin-bottom: 10px;
+}
+.about .about-content .skills .skill-item .progress .progress-in{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    border-radius: 4px;
+    background-color: var(--skin-color);
+}
+.about .about-content .skills .skill-item .skill-percent{
+    position: absolute;
+    right: 0;
+    color: var(--text-black-900);
+    top: -40px;
+    line-height: 60px;
+    font-weight: 400;
+}
+.about .about-content .education,
+.about .about-content .experience
+{
+    flex: 0 0 50%;
+    max-width: 50%;
+    margin-top: 30px;
+    /* background-color: red; */
+}
+
+.about .about-content h3.title{
+    font-size: 24px;
+    margin-bottom: 30px;
+    font-weight: 400;
+    color: var(--text-black-900)
+} 
+.about .about-content .timeline-box{
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+.about .about-content .timeline{
+    /* background-color: var(--bg-black-100); */
+    padding: 30px 15px; 
+    /* border: 1px solid var(--bg-black-50); */
+    /* border-radius: 10px; */
+    width: 100%;
+    position: relative;
+}
+.about .about-content .timeline .timeline-item{
+    position: relative;
+    padding-left: 37px;
+    padding-bottom: 50px;
+}
+.about .about-content .timeline .timeline-item:last-child{
+    padding-bottom: 0%;
+}
+.about .about-content .timeline .timeline-item::before{
+    content: '';
+    width: 1px;
+    position:absolute;
+    height: 100%;
+    top: 0;
+    left: 7px;
+    background-color: var(--skin-color);
+}
+.about .about-content .timeline .circle-dot{
+    position:absolute;
+    left:0;
+    top:0;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background-color: var(--skin-color);
+}
+.about .about-content .timeline .timeline-date{
+    font-weight: 400;
+    font-size: 12px;
+    margin-bottom:10px;
+    color: var(--text-black-700);
+}
+.about .about-content .timeline .timeline-date{
+    margin-right: 5px;
+}
+.about .about-content .timeline .timeline-title{
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 15px;
+    /* text-transform: capitalize; */
+    color: var(--text-black-900)
+}
+.about .about-content .timeline .timeline-text{
+    line-height: 25px;
+    font-size: 16px;
+    text-align: justify;
+    color: var(--text-black-700);
+}
+/* .portfolio .portfolio-content .left-porfolio-items,
+.portfolio .portfolio-content .right-porfolio-items{
+    flex: 0 0 50%;
+    max-width: 50%;
+    display: inline-flex;
+} */
+.left, 
+.right{
+    /* margin-left: 22%;
+    padding-right: 60px; */
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+.portfolio .portfolio-content .portfolio-item{
+    display: inline-flex;
+    padding-left: 20px;
+    top: 0;
+    justify-content: space-between;
+    display: inline-block;
+    margin-right: 10%;
+}
+.portfolio .portfolio-content .portfolio-item .portfolio-img{
+    padding-left: 20px;
+    display: flex;
+    position: relative;
+    max-width: 100%;
+    /* border: 1px solid var(--text-black-700); */
+    /* background-color: red; */
+    text-align: center;
+    /* background-size: cover; */
+    height: 180px;
+    width: 600px;
+    z-index: 0;
+}
+.portfolio .portfolio-content .portfolio-item .img-discription{
+    width: 42%;
+    margin-top: -9%;
+    margin-left: 26%;
+    position: relative;
+    border-radius: 12px;
+    z-index: 1;
+    background-color: #E8E8FC;
+    margin-bottom: 40px; 
+}
+
+.portfolio .portfolio-content .portfolio-item .img-discription .img-title{
+    display: flex; 
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-black-900);
+    padding-bottom: 15px;
+    justify-content: center; 
+}
+.portfolio .portfolio-content .portfolio-item .img-discription .img-text{
+    display: flex;
+    font-size: 16px;
+    text-align: center;
+    color: var(--text-black-700);
+}
 
 
 
