@@ -28,22 +28,24 @@ ul{
  
 }
 .section{
-    background: var(--bg-black-900);
+    /* background: var(--bg-black-900); */
     min-height: 100vh;
     display: block;
-    /* position: fixed; */
+    /* position: relative; */
     padding: 0 30px;
     /* left: 0; */
     /* top: 50px; */
     /* right: 0; */
     opacity: 1;
+    /* outline: 1px solid red; */
 }
 .hidden{
     display: none !important;
 }
 .main-content{
+    background: var(--bg-black-900);
     padding-left: 0;
-    margin-top: 50px; 
+    margin-top: 50px;
     padding-right: 0;
 }
 .padd-15{
@@ -51,9 +53,9 @@ ul{
     padding-right: 15px;
 }
 .container{
-    max-width: 1268px;
+    max-width: 1200px;
     width: 100%;
-    margin: auto; 
+    margin: auto;
     /* outline: 1px solid black; */
 }
 .section .container{
@@ -104,7 +106,7 @@ ul{
     color: white;
     border-radius: 100px;
     border: none;
-    display: inline-block; 
+    display: inline-block;
     white-space: nowrap;
     border: none;
     background: var(--skin-color);
@@ -179,7 +181,7 @@ ul{
     background: var(--skin-color);
     position: absolute;
     top: -6px;
-    left: 0;   
+    left: 0;  
 }
 .hero .nav-toggler span::after{
     content: '';
@@ -188,7 +190,7 @@ ul{
     background: var(--skin-color);
     position: absolute;
     top: 6px;
-    left: 0;   
+    left: 0;  
 }
  
 .hero .nav li a{
@@ -375,9 +377,9 @@ h3.my-proffession{
     flex: 0 0 100%;
     max-width: 100%;
 }
-.about .about-content .timeline{ 
+.about .about-content .timeline{
     background-color: var(--bg-black-100);
-    padding: 30px 15px; 
+    padding: 30px 15px;
     border: 1px solid var(--bg-black-50);
     border-radius: 10px;
     width: 100%;
@@ -436,11 +438,11 @@ h3.my-proffession{
 .portfolio .portfolio-item{
     flex: 0 0 50%;
     max-width: 50%;
-    /* outline: 1px solid red; */
+    /* outline: 1px solid black; */
     padding-left: 55px;
 }
 .portfolio .portfolio-item .portfolio-img{
-    padding-left: 20px;
+    /* padding-left: 10px; */
     display: flex;
     position: relative;
     max-width: 100%;
@@ -457,16 +459,16 @@ h3.my-proffession{
     border-radius: 12px;
     z-index: 1;
     background-color: #E8E8FC;
-    margin-bottom: 40px; 
+    margin-bottom: 40px;
 }
  
 .portfolio .portfolio-item .img-discription .img-title{
-    display: flex; 
+    display: flex;
     font-size: 17px;
     font-weight: 700;
     color: var(--text-black-900);
     padding-bottom: 15px;
-    justify-content: center; 
+    justify-content: center;
 }
 .portfolio .portfolio-item .img-discription .img-text{
     display: flex;
@@ -501,20 +503,20 @@ h3.my-proffession{
     position: relative;
     height: 300px;
     max-width: 100%;
-    margin-left: 18%;
+    margin-left: 16.5%;
     padding-bottom: 5px;
 }
 .blog .blog-item .blog-photo img{
-    /* width: 300px; */
+    /* width: 100px; */
 }
 .blog .blog-item .blog-details{
     padding-bottom: 5px;
     background-color: #E8E8FC;
-    width: 65%;
+    width: 68.5%;
     border-radius: 5px;
     padding-left: 10px;
     margin: auto;
-} 
+}
 .blog .blog-item .blog-details .title{
     font-size: 18px;
     font-weight: 700;
@@ -546,7 +548,7 @@ h3.my-proffession{
 .contact .contact-info-item{
     flex: 0 0 25%;
     max-width: 25%;
-    text-align: center; 
+    text-align: center;
      margin-bottom: 60px;
 }
 .contact .contact-info-item .icon{
@@ -577,7 +579,7 @@ h3.my-proffession{
 .contact .contact-form .col-6{
     flex: 0 0 50%;
     max-width: 50%;
- 
+   
     /* background-color: red; */
 }
 .contact .contact-form .col-12{
@@ -607,4 +609,93 @@ h3.my-proffession{
 .contact .contact-form .btn{
     height: 50px;
     padding: 0 50px;
+}
+ 
+@media (max-width: 814px){
+   
+}
+@media (max-width: 959.9px){
+    .home .home-img{
+        display: none !important;
+    }
+    .home .home-info{
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .portfolio .portfolio-item{
+        padding-left: 30px;
+    }
+    .portfolio .portfolio-item .portfolio-img{
+        padding-left: 10px;
+        height: 145px;
+        width: 400px;
+    }
+    .portfolio .portfolio-item .img-discription{
+        width: 53%;
+    }
+    .blog .blog-item .blog-photo img{
+        width: 226px;
+    }
+    .blog .blog-item .blog-details{
+        width: 82%;
+        margin-left: 48px;
+    }
+   
+ 
+}
+@media (min-width: 960px) and (max-width: 1024.9px){
+    .portfolio .portfolio-item .portfolio-img{
+        padding-left: 25px;
+        height: 150px;
+        width: 400px;
+    }
+    .portfolio .portfolio-item .img-discription{
+        width: 50%;
+    }
+}
+@media (min-width: 951px) and (max-width: 1140.9px){
+    .blog .blog-item .blog-photo img{
+        width: 228px
+    }
+    .blog .blog-item .blog-details{
+        width: 78%;
+        margin-left: 48px;
+    }
+    .portfolio .portfolio-item .portfolio-img{
+        height: 170px;
+        width: 450px;
+    }
+    .portfolio .portfolio-item .img-discription{
+        width: 48%;
+    }
+}
+@media (min-width: 1020px) and (max-width: 1140px){
+    .blog .blog-item .blog-photo img{
+        width: 238px
+    }
+    .blog .blog-item .blog-details{
+        margin-left: 55px;
+        width: 70%;
+    }
+}
+@media (min-width: 1041px) and (max-width: 1145.9px){
+    .blog .blog-item .blog-photo img{
+        width: 238px
+    }
+    .blog .blog-item .blog-details{
+        margin-left: 55px;
+    }
+}
+@media (min-width: 1146px) and (max-width: 1200px){
+    .blog .blog-item .blog-photo img{
+        width: 250px
+    }  
+}
+@media (min-width: 1201px) and (max-width: 1252px){
+    .blog .blog-item .blog-photo img{
+        width: 265px
+    }
+    .blog .blog-item .blog-details{
+        width: 69%;
+    }
 }
