@@ -431,3 +431,46 @@ h3.my-proffession{
     text-align: justify;
     color: var(--text-black-700);
 }
+ 
+/* Porfolio */
+.portfolio .portfolio-item{
+    flex: 0 0 50%;
+    max-width: 50%;
+    /* outline: 1px solid red; */
+    padding-left: 55px;
+}
+.portfolio .portfolio-item .portfolio-img{
+    padding-left: 20px;
+    display: flex;
+    position: relative;
+    max-width: 100%;
+    text-align: center;
+    height: 180px;
+    width: 600px;
+    z-index: 0;
+}
+.portfolio .portfolio-item .img-discription{
+    width: 42%;
+    margin-top: -11%;
+    margin-left: 50%;
+    position: relative;
+    border-radius: 12px;
+    z-index: 1;
+    background-color: #E8E8FC;
+    margin-bottom: 40px; 
+}
+ 
+.portfolio .portfolio-item .img-discription .img-title{
+    display: flex; 
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-black-900);
+    padding-bottom: 15px;
+    justify-content: center; 
+}
+.portfolio .portfolio-item .img-discription .img-text{
+    display: flex;
+    font-size: 16px;
+    text-align: center;
+    color: var(--text-black-700);
+}
