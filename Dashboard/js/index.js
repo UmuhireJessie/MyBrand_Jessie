@@ -2,6 +2,8 @@ const server = "https://andelamybrandapi.herokuapp.com/";
 
 let token = localStorage.getItem("token");
 
+let response;
+
 async function getuserInfo() {
   response = await fetch(server + "userinfo", {
     headers: {

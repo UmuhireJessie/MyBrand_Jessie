@@ -129,9 +129,10 @@
     </div>
     <!-- main container end-->
 
+
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     
-    <script>
+    <!-- <script>
         function logout() {
             swal({
                 title: "Log out",
@@ -144,6 +145,51 @@
                     location.href = "../../html/login.html";
                 })
         }
+    </script> -->
+
+    <script>
+        
+        const form = document.querySelector( "#form" );
+            form.addEventListener( "submit", async ( e ) => {
+                e.preventDefault();
+
+                var title = form.title.value;
+                var blogimage = form.blogimage.files[ 0 ];
+                var blogdescription = form.blogdescription.value;
+                var detail = form.detail.value;
+
+                console.log(blogimage);
+          
+                try {
+                    const formData = new FormData();
+                    formData.append("title", title);
+                    formData.append("blogimage", blogimage);
+                    formData.append("blogdescription", blogdescription);
+                    formData.append("detail", detail);
+
+                    response = await fetch( server + "blog", {
+                        method: "POST",
+                        headers: {
+                            "Authorization": token,
+                        },
+                        body: formData
+                    } );
+                    const data = await response.json();
+                    console.log(data);
+
+                    swal("successfully added", data.message, "success")
+
+                    title = "",
+                    blogimage = "",
+                    blogdescription ="",
+                    detail = ""
+                }
+                catch (error) {
+                    console.log(error);
+                }
+
+            } );
+            
     </script>
 
 
