@@ -1,41 +1,68 @@
-// // Reference messages collection 
-// var messageRef = firebase.database().ref('messages');
+// const menu = document.querySelector(".nav");
+// const menuItems = document.querySelectorAll(".menuItem");
+// const hamburger = document.querySelector(".nav-toggler");
 
-// // Listen for the submission of the contact form 
-// document.getElementById('contactform').addEventListener('submit', 
-// submitform)
- 
-// // Submit form
-// function submitform(event){
-//     event.preventDefault();
-
-//     // Get values
-//     var name = getInputVal('name');
-//     var email = getInputVal('email');
-//     var subject = getInputVal('subject');
-//     var message = getInputVal('message'); 
-
-//     // Save message
-//     saveMessage(name, email, subject, message);
-
-//     console.log(name)
-
+// function toggleMenu() {
+//     if (menu.classList.contains("showMenu")) {
+//         menu.classList.contains("showMenu");
+//         hamburger.style.display="flex";
+//     }else {
+//         menu.classList.add("showMenu");
+//         hamburger.style.display = "none";
+//       }
 // }
 
-// // A function to get form values
-// function getInputVal(id){
-//     return document.getElementById(id).value;
-// }
+// hamburger.addEventListener("click", toggleMenu);
 
-// // Save message to firebase
-// function saveMessage(name, email, subject, message){
-//     var newMessageRef = messageRef.push();
-//     newMessageRef.set({
-//         name:name,
-//         email:email,
-//         subject:subject,
-//         message:message
-//     });
-// }
+// menuItems.forEach(
+//   function(menuItem) {
+//     menuItem.addEventListener("click", toggleMenu);
+//   }
+// )
 
+const hamburger = document.querySelector(".nav-toggler");
+const navMenu = document.querySelector(".nav");
+
+hamburger.addEventListener("click", () => {
+  hamburger.classList.toggle("active");
+  navMenu.classList.toggle("active");
+});
+
+const server = "https://andelamybrandapi.herokuapp.com/";
+let response;
+let token;
+
+const logoutElt = document.getElementById("logout-btn");
+const loginElt = document.getElementById("login-btn");
+logoutElt.style.display = "none";
+
+token = localStorage.getItem("token");
+
+if (!token) {
+  logoutElt.style.display = "none";
+} else {
+  logoutElt.style.display = "inline-block";
+  loginElt.style.display = "none";
+}
+
+function logout() {
+    swal({
+        title: "Log out",
+        text: "Are you sure?",
+        icon: "warning",
+        buttons: true,
+    
+        dangerMode: true,
+      })
+        .then((willDelete) => {
+          if (willDelete) {
+            localStorage.removeItem("token");
+            localStorage.removeItem("username");
+            location.href = "../index.html";
+          }
+        })
+        .then(() => {
+          login_button.style.display = "inline-block";
+        });
+}
 

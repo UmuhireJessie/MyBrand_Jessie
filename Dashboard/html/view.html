@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="../js/index.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <!-- main container start-->
+    <div class="main-container">
+
+        <!-- Aside start -->
+        <div class="aside">
+            <div class="logo">
+                <a href="#"><span>J</span>essie</a>
+            </div>
+            <ul class="nav">
+                <li><a href="./index.html"><i class="fa fa-home"></i>Dashboard</a></li>
+                <li><a href="./add-blog.html"><i class="fa fa-blog"></i>Add Blog</a></li>
+                <li><a href="./edit-blog.html" class=active><i class="fa fa-list"></i>Edit Blog</a></li>
+                <li><a href="./contact-message.html"><i class="fa fa-phone"></i>Contact</a></li>
+            </ul>
+        </div>
+        <!-- Aside Ends -->
+
+        <!-- Main content start -->
+        <div class="main-content">
+            <!-- Home section start -->
+            <section class="home section">
+                <div class="hero shadow-dark">
+                    <!-- <div class="nav-toggler">
+                        <span></span>
+                    </div> -->
+                    <div class="logo">
+                        <a href="#">Dashboard</a>
+                    </div>
+
+                    <ul class="dash-nav">
+                        <li><a href="/index.html">Home</a></li>
+                        <li><a href="../../html/blog.html" class="active">Blog</a></li>
+                        <li><a href="../../html/contact.html">Contact</a></li>
+                        <li><a href="#" class="active-login">Logout</a></li>
+
+                    </ul>
+
+                    
+                </div>
+                <main>
+                        <div class="container p-3" style="background-color: white; ">
+                            <div class="row  mt-4">
+                                <div class="col-lg-6 fadeInUp animated">
+                                    <img id="blog_img" class="img-artical">
+        
+        
+                                </div>
+                                <div class="col-lg-6 text-black">
+                                    <div class="row">
+        
+                                        <div class="col-lg-12 fadeInUp animated mt-3">
+                                            <h5 id="blog-title"></h5>
+                                            <p id="blog-description"> </p>
+                                        </div>
+                                        <div class="col-lg-12 mt-5">
+                                            <div class="row">
+                                                <div class="col-md-4 text-muted fadeInUp animated">
+                                                    posted at <span id="blog-posted-at">
+        
+        
+                                                    </span>
+        
+                                                </div>
+                                                <div class="col-md-5 text-muted">
+                                                    liked by &nbsp; Disliked by &nbsp; Shared by
+                                                </div>
+                                            </div>
+        
+                                        </div>
+                                    </div>
+        
+                                </div>
+        
+        
+                            </div>
+                            <div class="row mt-5 text-black">
+                                <div class="col-lg-12">
+        
+                                    <div class="row mb-5">
+        
+                                        <div class="col-lg-12 animated fadeInUp pb-4 ">
+                                            <h4 class=" text-black-50 ">COMMENTS:</h4>
+        
+                                            <table class="table table-condensed table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>No</th>
+                                                        <th>Name</th>
+                                                        <th>Email</th>
+                                                        <th>Comments</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="comment_body">
+        
+                                                </tbody>
+                                            </table>
+        
+        
+        
+        
+                                        </div>
+        
+                                    </div>
+        
+                                </div>
+                            </div>
+                        </div>
+                </main>
+            </section>
+            
+
+        </div>
+    </div>
+</body>
+
+</html>

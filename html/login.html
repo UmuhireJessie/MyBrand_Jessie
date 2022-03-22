@@ -28,7 +28,8 @@
                 <li><a href="./portfolio.html" >Portfolio</a></li>
                 <li><a href="./blog.html" >Blog</a></li>
                 <li><a href="./contact.html" >Contact</a></li>
-                <li><a href="./login.html" class="active-login">Login</a></li>
+                <li id="login-btn"><a href="./login.html" class="active-login" >Login</a></li>
+                <li id="logout-btn"><a href="#" class="active-login" onclick="logout()">Logout</a></li>
             </ul>
         </div>
         <div class="main-content">
@@ -69,38 +70,55 @@
         </div>
         
     </div>
+   
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-storage.js"></script>
+    <script src="../js/script.js"></script>  
+
     <script>
 
         const form = document.querySelector('.login-form')
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyAWLB41ttcpXochr9Yp6d_F-HUEb2jdXXg",
-            authDomain: "jessie-brand.firebaseapp.com",
-            projectId: "jessie-brand",
-            storageBucket: "jessie-brand.appspot.com",
-            messagingSenderId: "928660970937",
-            appId: "1:928660970937:web:fd1d6bd767586ee2f56a68",
-            measurementId: "G-FLQW7EQDNC"
-        };
+            try {
+                const response = await fetch(server + "user/login", {
+                    method: 'POST', 
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: form.email.value,
+                        password: form.password.value
+                    }),
+                })
+                const data = await response.json()
+                if (response.status == 201) {
+                    swal('Successfully logged in', data.message, 'success')
+                    .then(() => {
+                        localStorage.setItem('token', 'Bearer ' + data.token) 
+                        if (data.role == 'admin') {
+                            location.href = '../Dashboard/html/index.html'
+                        }else{
+                            location.href = './blog.html'
+                        }
+                })  
+                }else if(response.status == 403){
+                    swal('Error', data.error, 'error').then (() => location.href = 'login.html')
+                } 
+                else if(response.status == 404 ){
+                    swal('Error', data.error, 'error').then (() => location.href = 'login.html')
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        })
 
-        const app = firebase.initializeApp(firebaseConfig);
-
-        form.addEventListener('submit', (event) =>{
-            event.preventDefault();
-            
-            app.auth().signInWithEmailAndPassword(form.email.value, form.password.value).then((userCredential) => {
-                alert("Successfully logged in!")
-            })
-            .catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-            });
-    })
-
-    </script>                 
+    </script>   
+                
 </body>
 </html>

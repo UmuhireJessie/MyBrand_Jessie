@@ -26,7 +26,8 @@
                 <li><a href="./portfolio.html" >Portfolio</a></li>
                 <li><a href="./blog.html" class="active">Blog</a></li>
                 <li><a href="./contact.html" >Contact</a></li>
-                <li><a href="./login.html" class="tap-login">Login</a></li>
+                <li id="login-btn"><a href="./login.html" class="tap-login">Login</a></li>
+                <li id="logout-btn"><a href="#" class="tap-login" onclick="logout()">Logout</a></li>
             </ul>
         </div>
         <div class="main-content">
@@ -41,42 +42,56 @@
                         <p class="blog-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                             Quaerat, qui facere. Culpa sequi incidunt beatae!</p>
                     </div>
-                    <div class="parent-item">
-                        <div class="blog-item">
-                            <div class="blog-photo">
-                                <img src="../images\pictures\blog-database.jpg" alt="">
-                            </div>
-                            <div class="blog-details">
-                                <h2 class="title">Article 1</h2>
-                                <p class="blog-descrption">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Vero... <span>Read more</span></p>
-                            </div>
-                        </div>
-                        <div class="blog-item">
-                            <div class="blog-photo">
-                                <img src="../images\pictures\blog-database.jpg" alt="">
-                            </div>
-                            <div class="blog-details">
-                                <h2 class="title">Article 1</h2>
-                                <p class="blog-descrption">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Vero... <span>Read more</span></p>
-                            </div>
-                        </div>
-                        <div class="blog-item">
-                            <div class="blog-photo">
-                                <img src="../images\pictures\blog-database.jpg" alt="">
-                            </div>
-                            <div class="blog-details">
-                                <h2 class="title">Article 1</h2>
-                                <p class="blog-descrption">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Vero... <span>Read more</span></p>
-                            </div>
-                        </div>
+                    <div class="parent-item" id="parent-item">
+                        
                     </div>
             </section>
         </div>
         
     </div>
-             
+    
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="../js/script.js"></script>      
+    
+    <script>
+        
+        const allBlog = async () => {
+            const response = await fetch(server + 'blog')
+            const data = await response.json();
+            data.allBlogs.forEach(blog => {
+                console.log(blog);
+                const title = blog.title;
+                const blogdescription = blog.blogdescription;
+                const blogimage = blog.blogimage;
+                const detail = blog.detail;
+                const date = blog.date;
+                const blogId = blog._id;
+                singleBlog(title, blogimage, blogdescription, detail, date, blogId);
+
+
+            });
+
+        }
+        allBlog();
+
+        function singleBlog(title, blogimage, blogdescription, detail, date, blogId) {
+            const parentItem = document.getElementById('parent-item');
+            const blogItem = document.createElement('div');
+            blogItem.classList.add("blog-item");
+
+            const singleBlog = `
+                            <div class="blog-photo">
+                                <img src="${blogimage}" alt="">
+                            </div>
+                            <div class="blog-details">
+                                <h2 class="title">${title}</h2>
+                                <p class="blog-descrption"> ${blogdescription}<a href="./readmore.html?${blogId}">Read more</a></p>
+                            </div> `
+            
+            blogItem.innerHTML = singleBlog;
+            parentItem.appendChild(blogItem);
+        } 
+    </script>
+
 </body>
 </html>
