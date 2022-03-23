@@ -576,14 +576,15 @@ h3.my-proffession{
     font-size: 24px;
     padding-bottom: 20px;
 }
-.more-details .usercomments {
+.allComment .usercomments .oneComment{
     padding-left: 10px;
     margin-top: 30px;
     margin-right: 60%;
-    border: 1px solid black;
+    border: 1px solid black
 }
 .image {
-    margin-top: -62%;
+    margin-top: -10%;
+    width: 80%;
 }
 
 .image .allComment {
