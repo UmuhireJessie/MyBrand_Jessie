@@ -50,44 +50,22 @@
             <li><a href="../../html/contact.html">Contact</a></li>
             <li><a href="#" class="active-login">Logout</a></li>
 
-          </ul>
+          </ul>        
+
         </div>
         <div>
-          <table>
-            <tr class="table-head">
-              <th scope="col">No</th>
-              <th scope="col">First Name</th>
-              <th scope="col">Second Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Date</th>
-              <th scope="col">Action</th>
-            </tr>
-
-            <tr class="table-body" id="blog">
-              <td>1</td>
-              <td>Imaggeee</td>
-              <td>Article 1</td>
-              <td>Hello here we are doing this</td>
-              <td></td>
-              <td>
-                <span class="view">Reply</span>
-                <span class="delete">Delete</span>
-              </td>
-            </tr>
-
-            <tr class="table-body">
-              <td>2</td>
-              <td>Imaggeee</td>
-              <td>Article 2</td>
-              <td>Hello here we are doing this</td>
-              <td></td>
-              <td>
-                <span class="view">Reply</span>
-                <span class="delete">Delete</span>
-              </td>
-            </tr>
-
+          <table id="messages">
+            <thead>
+              <td>No</td>
+              <td>Name</td>
+              <td>Email</td>
+              <td>Subject</td>
+              <td>Message</td>
+              <td>Date</td>
+              <td>Action</td>
+            </thead>
           </table>
+
         </div>
       </section>
       <!-- Home section end -->
@@ -111,6 +89,71 @@
                 location.href = "../../html/login.html";
               })
       }
+  </script>
+
+  <script>
+    async function getAllMessage() {
+                
+                response = await fetch( server + "message", {
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                        "Authorization": token
+                    },
+
+                } );
+                const datas = await response.json();
+                datas.data.forEach( el => {
+                    const DataName = el.name;
+                    const DataEmail = el.email;
+                    const Subject = el.subject;
+                    const Message = el.message;
+                    const DataDate = el.date;
+                    const DataId = el._id;
+
+                    
+
+                    AddNewData( DataName, DataEmail, Subject, Message, DataDate, DataId );
+                } );
+
+            }
+            let rowsNum = 0;
+            function AddNewData( DataName, DataEmail, Subject, Message, DataDate, DataId ) {
+                
+                const messageTr = document.querySelector( '#messages' );
+
+                var tr = document.createElement( 'tr' );
+                var tdNow = document.createElement( 'td' );
+                var tdName = document.createElement( 'td' );
+                var tdEmail = document.createElement( 'td' );
+                var tdSubject = document.createElement( 'td' );
+                var tdMessage = document.createElement( 'td' );
+                var tdDate = document.createElement( 'td' );
+                var tdAction = document.createElement( 'td' );
+                rowsNum += 1;
+
+                tdNow.innerHTML = rowsNum;
+                tdName.innerHTML = DataName;
+                tdEmail.innerHTML = DataEmail;
+                tdSubject.innerHTML = Subject;
+                tdMessage.innerHTML = Message;
+                tdDate.innerHTML = DataDate;
+
+                tdAction.innerHTML = `<a href="#" class="view" onclick='Reply()'>Reply</a>    <a href="#" class="delete" onclick="Delete(this.id)">Delete</a>`;
+               
+                tr.appendChild( tdNow );
+                tr.appendChild( tdName );
+                tr.appendChild( tdEmail );
+                tr.appendChild( tdSubject );
+                tr.appendChild( tdMessage );
+                tr.appendChild( tdDate );
+                tr.appendChild( tdAction );
+                messageTr.appendChild( tr );
+                const deleteForm = document.getElementById( "delete" );
+            }
+            getAllMessage(); 
+
+
   </script>
 
 </body>
