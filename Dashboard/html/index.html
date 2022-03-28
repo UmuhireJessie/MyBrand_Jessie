@@ -57,16 +57,24 @@
 
 <script>
     function logout() {
-    swal({
-        title: "Log out",
-        text: "Are you sure?",
-        icon: "warning",
-    })
-        .then((del) => {
-            localStorage.removeItem("token");
+        swal({
+            title: 'Are you sure?',
+            icon: 'warning',
+            buttons: ["cancel", "logout"],
+        }).then((result) => {
+            if (result) {
+                swal(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
 
-            location.href = "../../html/login.html";
-        })
+                localStorage.removeItem("token");
+
+                location.href = "../../html/login.html";
+            }
+        }
+        )
     }
 </script>
 

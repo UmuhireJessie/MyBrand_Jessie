@@ -25,9 +25,9 @@
             </div>
             <ul class="nav">
                 <li><a href="./index.html"><i class="fa fa-home"></i>Dashboard</a></li>
-                <li><a href="./add-blog.html" ><i class="fa fa-blog"></i>Add Blog</a></li>
-                <li><a href="./edit-blog.html"class=active><i class="fa fa-list"></i>Edit Blog</a></li>
-                <li><a href="./contact-message.html" ><i class="fa fa-phone"></i>Contact</a></li>
+                <li><a href="./add-blog.html"><i class="fa fa-blog"></i>Add Blog</a></li>
+                <li><a href="./edit-blog.html" class=active><i class="fa fa-list"></i>Edit Blog</a></li>
+                <li><a href="./contact-message.html"><i class="fa fa-phone"></i>Contact</a></li>
             </ul>
         </div>
         <!-- Aside Ends -->
@@ -75,10 +75,10 @@
                                     </div>
 
                                     <div class="card-body">
-                                        <form action="post" id="form">
+                                        <form action="post" id="updateForm">
                                             <div class="col-md-8">
                                                 <div class="form-group">
-                                                    <span class="text-danger" id="title-error"></span>
+                                                    <span class="text-danger" id="titleRequired"></span>
                                                     <span class="label label-default">Blog Title <i
                                                             class="text-danger">*</i></span>
 
@@ -130,20 +130,136 @@
     <!-- main container end-->
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    
+
     <script>
         function logout() {
             swal({
-                title: "Log out",
-                text: "Are you sure?",
-                icon: "warning",
-            })
-                .then((del) => {
+                title: 'Are you sure?',
+                icon: 'warning',
+                buttons: ["cancel", "logout"],
+            }).then((result) => {
+                if (result) {
+                    swal(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+
                     localStorage.removeItem("token");
 
                     location.href = "../../html/login.html";
-                })
+                }
+            }
+            )
         }
+    </script>
+
+    <script>
+
+        const blogId = location.search.substring(1);
+        const updateForm = document.querySelector("#updateForm");
+        const blogTitle = document.getElementById('title');
+        const blogImage = document.getElementById('blogimage');
+        const blogDescription = document.getElementById('blogdescription');
+        const detail = document.getElementById("detail");
+        async function updateBlog() {
+            try {
+                response = await fetch(server + 'blog/' + blogId);
+
+                const data = await response.json();
+                blogInfo = data.blog;
+                console.log(blogInfo);
+
+                blogTitle.setAttribute('value', blogInfo.title);
+                blogImage.setAttribute('src', blogInfo.blogimage);
+                blogDescription.setAttribute('value', blogInfo.blogdescription);
+                detail.innerHTML = blogInfo.detail;
+
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }
+        
+
+        updateForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            var title = updateForm.title.value;
+            var image = updateForm.blogimage.files[0];
+            var blogDescription = updateForm.blogdescription.value;
+            var detail = updateForm.detail.value;
+
+            if (updateForm.title.value == "" || updateForm.title.value == null) {
+                document.getElementById('titleRequired').innerHTML = "Title is required";
+                updateForm.title.classList.add('is-invalid');
+                updateForm.title.focus();
+
+                return false;
+            }
+            else {
+                updateForm.title.classList.remove('is-invalid');
+                document.getElementById('titleRequired').innerHTML = "";
+
+                updateForm.title.classList.add('is-valid');
+
+            }
+
+            if (updateForm.blogimage.value == '' || updateForm.blogimage.value == null) {
+
+                response = await fetch(server + "blog/" + blogId, {
+                    method: "PATCH",
+                    headers: {
+                        "Authorization": token,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        title: title,
+                        blogdescription: blogdescription,
+                        detail: detail
+                    })
+                });
+                const message = await response.json();
+                if (response.ok == true) {
+
+                    swal('The Blog', title + 'Has  been Update', 'success').then(() => {
+                        location.href = 'edit-blog.html';
+                    });
+                }
+                else {
+                    swal('Error', message.error, 'error');
+                }
+            }
+
+
+            else {
+                const formData = new FormData();
+                formData.append("title", title,);
+                formData.append("blogimage", image);
+                formData.append("blogdescription", blogdescription);
+                formData.append("detail", detail);
+
+                response = await fetch(server + "blog-image/" + blogId, {
+                    method: "PATCH",
+                    headers: {
+                        "Authorization": token
+                    },
+                    body: formData
+                });
+                const message = await response.json();
+                if (response.ok == true) {
+
+                    swal('The blog', title + 'has  been updated', 'success').then(() => {
+                        location.href = 'edit-blog.html';
+                    });
+                }
+                else {
+                    swal('Error', message.error, 'error');
+                }
+            }
+        })
+        
+        updateBlog();
     </script>
 
 

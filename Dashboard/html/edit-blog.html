@@ -53,44 +53,31 @@
           </ul>
         </div>
         <div>
-          <table>
-            <tr class="table-head">
-              <th scope="col">No</th>
-              <th scope="col">Blog Image</th>
-              <th scope="col">Tittle</th>
-              <th scope="col">Blog Description</th>
-              <th scope="col">Date</th>
-              <th scope="col">Action</th>
-            </tr>
 
-            <tr class="table-body" id="blog">
-              <td>1</td>
-              <td>Imaggeee</td>
-              <td>Article 1</td>
-              <td>Hello here we are doing this</td>
-              <td></td>
-              <td>
-                <a href="./view.html" class="view">View</a>
-                <a href="./update.html" class="update">Update</a>
-                <a href="#" class="delete">Delete</a>
-              </td>
-            </tr>
-
-            <tr class="table-body">
-              <td>2</td>
-              <td>Imaggeee</td>
-              <td>Article 2</td>
-              <td>Hello here we are doing this</td>
-              <td></td>
-              <td>
-                <a href="./view.html" class="view">View</a>
-                <a href="./update.html" class="update">Update</a>
-                <a href="#" class="delete">Delete</a>
-              </td>
-            </tr>
-
-          </table>
-        </div>
+          <div>
+            <table id="all-blogs">
+              <thead>
+                <td>No</td>
+                <td>Blog Image</td>
+                <td>Tittle</td>
+                <td>Blog Description</td>
+                <td>Date</td>
+                <td>Action</td>
+              </thead>
+              <!-- <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                  <a href="./view.html" class="view">View</a>
+                  <a href="./update.html" class="update">Update</a>
+                  <a href="#" class="delete">Delete</a>
+                </td>
+              </tr> -->
+              
+            </table>
       </section>
       <!-- Home section end -->
     </div>
@@ -102,17 +89,121 @@
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     
   <script>
-      function logout() {
-          swal({
-              title: "Log out",
-              text: "Are you sure?",
-              icon: "warning",
-          })
-              .then((del) => {
+    function logout() {
+        swal({
+            title: 'Are you sure?',
+            icon: 'warning',
+            buttons: ["cancel", "logout"],
+        }).then((result) => {
+            if (result) {
+                swal(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+
                 localStorage.removeItem("token");
+
                 location.href = "../../html/login.html";
-              })
-      }
+            }
+        }
+        )
+    }
+</script>
+
+  <script>
+    async function getAllBlogs() {
+                
+      response = await fetch( server + "blog", {
+          headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              "Authorization": token
+          },
+
+      } );
+      const datas = await response.json();
+      // console.log(datas);
+      datas.allBlogs.forEach( el => {
+          const dataImage = el.blogimage;
+          const dataTitle = el.title;
+          const blogDescription= el.blogdescription;
+          const dataDate = el.date;
+          const dataAction = el.action;
+          const DataId = el._id;                  
+
+          AddNewData( dataImage, dataTitle, blogDescription, dataDate, dataAction, DataId );
+        
+      } );
+
+  }
+  let rowsNum = 0;
+  function AddNewData( dataImage, dataTitle, blogDescription, dataDate, dataAction, DataId ) {
+      
+      const blogTr = document.querySelector( '#all-blogs' );
+      
+      var tr = document.createElement( 'tr' );
+      var tdNow = document.createElement( 'td' );
+      var tdImage = document.createElement( 'td' );
+      let image = document.createElement('img');
+      var tdTitle = document.createElement( 'td' );
+      var tdBlogdescr = document.createElement( 'td' );
+      var tdDate = document.createElement( 'td' );
+      var tdAction = document.createElement( 'td' );
+      rowsNum += 1;
+
+      image.setAttribute('src', dataImage);
+      image.setAttribute('width', 100);
+      image.setAttribute('height', 100);
+
+
+      tdNow.innerHTML = rowsNum;
+      tdImage.appendChild(image); 
+
+      tdTitle.innerHTML = dataTitle;
+      tdBlogdescr.innerHTML = blogDescription;
+      tdDate.innerHTML = dataDate;
+
+      tdAction.innerHTML = `
+        <a href="./view.html?${DataId}" class="view">View</a>
+        <a href="./update.html?${DataId}" class="update">Update</a>
+        <a  href="#" onclick="deleteBlog(this.id)" class="delete" id="${DataId}"> Delete </a>`;
+      
+      tr.appendChild( tdNow );
+      tr.appendChild( tdImage );
+      tr.appendChild( tdTitle );
+      tr.appendChild( tdBlogdescr );
+      tr.appendChild( tdDate );
+      tr.appendChild( tdAction );
+      blogTr.appendChild( tr );
+  }
+
+  async function deleteBlog( BlogId ) {
+      swal( {
+          title: "Delete Blog",
+          text: "Are you sure?",
+          icon: "warning",
+          buttons: true,
+
+          dangerMode: true,
+      } )
+          .then( async ( willDelete ) => {
+              if ( willDelete ) {
+                  response = await fetch( server + 'blog/' + BlogId, {
+                      method: 'DELETE',
+                      headers: {
+                          "Authorization": token
+                      }
+                  } );
+                  if ( response.ok == true ) {
+                      swal( "Blog ", "Blog was deletes Successfully", 'success' ).then( () => {
+                          window.location.reload();
+                      } );
+                  }
+              }
+          } );
+  }
+            getAllBlogs(); 
   </script>
 
 </body>

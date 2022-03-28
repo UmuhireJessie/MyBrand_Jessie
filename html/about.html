@@ -201,6 +201,28 @@
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
     <script src="../js/script.js"></script>  
+    <script>
+        function logout() {
+            swal({
+                title: 'Are you sure?',
+                icon: 'warning',
+                buttons: ["cancel", "logout"],
+            }).then((result) => {
+                if (result) {
+                    swal(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+    
+                    localStorage.removeItem("token");
+    
+                    location.href = "../../html/login.html";
+                }
+            }
+            )
+        }
+    </script>
      
 </body>
 </body>

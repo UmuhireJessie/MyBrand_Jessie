@@ -48,7 +48,7 @@
             <li><a href="/index.html">Home</a></li>
             <li><a href="../../html/blog.html" class="active">Blog</a></li>
             <li><a href="../../html/contact.html">Contact</a></li>
-            <li><a href="#" class="active-login">Logout</a></li>
+            <li><a  class="active-login" onclick="logout()">Logout</a></li>
 
           </ul>        
 
@@ -78,18 +78,27 @@
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     
   <script>
-      function logout() {
-          swal({
-              title: "Log out",
-              text: "Are you sure?",
-              icon: "warning",
-          })
-              .then((del) => {
+    function logout() {
+        swal({
+            title: 'Are you sure?',
+            icon: 'warning',
+            buttons: ["cancel", "logout"],
+        }).then((result) => {
+            if (result) {
+                swal(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+
                 localStorage.removeItem("token");
+
                 location.href = "../../html/login.html";
-              })
-      }
-  </script>
+            }
+        }
+        )
+    }
+</script>
 
   <script>
     async function getAllMessage() {
@@ -152,6 +161,9 @@
                 const deleteForm = document.getElementById( "delete" );
             }
             getAllMessage(); 
+
+            
+          
 
 
   </script>
