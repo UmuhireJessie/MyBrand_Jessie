@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/skins/color-1.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Portfolio</title>
+</head>
+<body>
+    <div class="main-container">
+        <div class="hero">
+            <div class="logo">
+                <a href="#"><span>J</span>essie</a>
+            </div>
+            <div class="nav-toggler">
+                <span></span>
+            </div>
+            <ul class="nav">
+                <li><a href="/index.html">Home</a></li>
+                <li><a href="./about.html">About</a></li>
+                <li><a href="./portfolio.html" class="active">Portfolio</a></li>
+                <li><a href="./blog.html" >Blog</a></li>
+                <li><a href="./contact.html" >Contact</a></li>
+                <li id="login-btn"><a href="./login.html" class="tap-login">Login</a></li>
+                <li id="logout-btn"><a href="#" class="tap-login" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <section class="portfolio section">
+                <div class="container">
+                    <div class="row">
+                        <div class="section-title padd-15">
+                            <h2>Portfolio</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="portfolio-item padd-15">
+                            <div class="portfolio-img">
+                                <img src="../images/pictures/website-builder.jpg" alt="">
+                            </div>
+                            <div class="img-discription">
+                                <h3 class="img-title">Web Designing</h3>
+                                <p class="img-text">Lorem ipsum dolor sit amet consectetur
+                                    adipisicing elit. Porro.</p>
+                            </div>
+                        </div>
+                        <div class="portfolio-item padd-15">
+                            <div class="portfolio-img">
+                                <img src="../images/pictures/website-builder.jpg" alt="">
+                            </div>
+                            <div class="img-discription">
+                                <h3 class="img-title">Web Designing</h3>
+                                <p class="img-text">Lorem ipsum dolor sit amet consectetur
+                                    adipisicing elit. Porro.</p>
+                            </div>
+                        </div>
+                        <div class="portfolio-item padd-15">
+                            <div class="portfolio-img">
+                                <img src="../images/pictures/website-builder.jpg" alt="">
+                            </div>
+                            <div class="img-discription">
+                                <h3 class="img-title">Web Designing</h3>
+                                <p class="img-text">Lorem ipsum dolor sit amet consectetur
+                                    adipisicing elit. Porro.</p>
+                            </div>
+                        </div>
+                        <div class="portfolio-item padd-15">
+                            <div class="portfolio-img">
+                                <img src="../images/pictures/website-builder.jpg" alt="">
+                            </div>
+                            <div class="img-discription">
+                                <h3 class="img-title">Web Designing</h3>
+                                <p class="img-text">Lorem ipsum dolor sit amet consectetur
+                                    adipisicing elit. Porro.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+    </div>
+    
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="../js/script.js"></script>
+    
+    <script>
+        function logout() {
+            swal({
+                title: 'Are you sure?',
+                icon: 'warning',
+                buttons: ["cancel", "logout"],
+            }).then((result) => {
+                if (result) {
+                    swal(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+    
+                    localStorage.removeItem("token");
+    
+                    location.href = "../../html/login.html";
+                }
+            }
+            )
+        }
+    </script>
+
+</body>
+</html>

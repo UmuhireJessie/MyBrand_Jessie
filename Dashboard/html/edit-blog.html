@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <script src="../js/index.js"></script>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+  <!-- main container start-->
+  <div class="main-container">
+
+    <!-- Aside start -->
+    <div class="aside">
+      <div class="logo">
+        <a href="#"><span>J</span>essie</a>
+      </div>
+      <ul class="nav">
+        <li><a href="./index.html"><i class="fa fa-home"></i>Dashboard</a></li>
+        <li><a href="./add-blog.html"><i class="fa fa-blog"></i>Add Blog</a></li>
+        <li><a href="./edit-blog.html" class=active><i class="fa fa-list"></i>Edit Blog</a></li>
+        <li><a href="./contact-message.html" ><i class="fa fa-phone"></i>Contact</a></li>
+      </ul>
+    </div>
+    <!-- Aside Ends -->
+
+    <!-- Main content start -->
+    <div class="main-content">
+      <!-- Home section start -->
+      <section class="home section">
+        <div class="hero shadow-dark">
+          <!-- <div class="nav-toggler">
+                        <span></span>
+                    </div> -->
+          <div class="logo">
+            <a href="#">Dashboard</a>
+          </div>
+
+          <ul class="dash-nav">
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="../../html/blog.html" class="active">Blog</a></li>
+            <li><a href="../../html/contact.html">Contact</a></li>
+            <li><a class="active-login" onclick="logout()">Logout</a></li>
+
+          </ul>
+        </div>
+        <div>
+
+          <div>
+            <table id="all-blogs">
+              <thead>
+                <td>No</td>
+                <td>Blog Image</td>
+                <td>Tittle</td>
+                <td>Blog Description</td>
+                <td>Date</td>
+                <td>Action</td>
+              </thead>
+              <!-- <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                  <a href="./view.html" class="view">View</a>
+                  <a href="./update.html" class="update">Update</a>
+                  <a href="#" class="delete">Delete</a>
+                </td>
+              </tr> -->
+              
+            </table>
+      </section>
+      <!-- Home section end -->
+    </div>
+    <!-- Main content end -->
+
+  </div>
+  <!-- main container end-->
+
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
+  <script>
+    function logout() {
+        swal({
+            title: 'Are you sure?',
+            icon: 'warning',
+            buttons: ["cancel", "logout"],
+        }).then((result) => {
+            if (result) {
+                swal(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+
+                localStorage.removeItem("token");
+
+                location.href = "../../html/login.html";
+            }
+        }
+        )
+    }
+</script>
+
+  <script>
+    async function getAllBlogs() {
+                
+      response = await fetch( server + "blog", {
+          headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              "Authorization": token
+          },
+
+      } );
+      const datas = await response.json();
+      // console.log(datas);
+      datas.allBlogs.forEach( el => {
+          const dataImage = el.blogimage;
+          const dataTitle = el.title;
+          const blogDescription= el.blogdescription;
+          const dataDate = el.date;
+          const dataAction = el.action;
+          const DataId = el._id;                  
+
+          AddNewData( dataImage, dataTitle, blogDescription, dataDate, dataAction, DataId );
+        
+      } );
+
+  }
+  let rowsNum = 0;
+  function AddNewData( dataImage, dataTitle, blogDescription, dataDate, dataAction, DataId ) {
+      
+      const blogTr = document.querySelector( '#all-blogs' );
+      
+      var tr = document.createElement( 'tr' );
+      var tdNow = document.createElement( 'td' );
+      var tdImage = document.createElement( 'td' );
+      let image = document.createElement('img');
+      var tdTitle = document.createElement( 'td' );
+      var tdBlogdescr = document.createElement( 'td' );
+      var tdDate = document.createElement( 'td' );
+      var tdAction = document.createElement( 'td' );
+      rowsNum += 1;
+
+      image.setAttribute('src', dataImage);
+      image.setAttribute('width', 100);
+      image.setAttribute('height', 100);
+
+
+      tdNow.innerHTML = rowsNum;
+      tdImage.appendChild(image); 
+
+      tdTitle.innerHTML = dataTitle;
+      tdBlogdescr.innerHTML = blogDescription;
+      tdDate.innerHTML = dataDate;
+
+      tdAction.innerHTML = `
+        <a href="./view.html?${DataId}" class="view">View</a>
+        <a href="./update.html?${DataId}" class="update">Update</a>
+        <a  href="#" onclick="deleteBlog(this.id)" class="delete" id="${DataId}"> Delete </a>`;
+      
+      tr.appendChild( tdNow );
+      tr.appendChild( tdImage );
+      tr.appendChild( tdTitle );
+      tr.appendChild( tdBlogdescr );
+      tr.appendChild( tdDate );
+      tr.appendChild( tdAction );
+      blogTr.appendChild( tr );
+  }
+
+  async function deleteBlog( BlogId ) {
+      swal( {
+          title: "Delete Blog",
+          text: "Are you sure?",
+          icon: "warning",
+          buttons: true,
+
+          dangerMode: true,
+      } )
+          .then( async ( willDelete ) => {
+              if ( willDelete ) {
+                  response = await fetch( server + 'blog/' + BlogId, {
+                      method: 'DELETE',
+                      headers: {
+                          "Authorization": token
+                      }
+                  } );
+                  if ( response.ok == true ) {
+                      swal( "Blog ", "Blog was deletes Successfully", 'success' ).then( () => {
+                          window.location.reload();
+                      } );
+                  }
+              }
+          } );
+  }
+            getAllBlogs(); 
+  </script>
+
+</body>
+
+</html>

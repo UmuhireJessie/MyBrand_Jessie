@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/skins/color-1.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Blog</title>
+</head>
+<body>
+    <div class="main-container">
+        <div class="hero">
+            <div class="logo">
+                <a href="#"><span>J</span>essie</a>
+            </div>
+            <div class="nav-toggler">
+                <span></span>
+            </div>
+            <ul class="nav">
+                <li><a href="/index.html">Home</a></li>
+                <li><a href="./about.html">About</a></li>
+                <li><a href="./portfolio.html" >Portfolio</a></li>
+                <li><a href="./blog.html" class="active">Blog</a></li>
+                <li><a href="./contact.html" >Contact</a></li>
+                <li id="login-btn"><a href="./login.html" class="tap-login">Login</a></li>
+                <li id="logout-btn"><a href="#" class="tap-login" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <section class="blog section">
+                <div class="container">
+                    <div class="row">
+                        <div class="section-title padd-15">
+                            <h2>My Blogs</h2>
+                        </div>
+                    </div>
+                    <div class="blog-info">
+                        <p class="blog-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                            Quaerat, qui facere. Culpa sequi incidunt beatae!</p>
+                    </div>
+                    <div class="parent-item" id="parent-item">
+                        
+                    </div>
+            </section>
+        </div>
+        
+    </div>
+    
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="../js/script.js"></script>
+    
+    <script>
+        function logout() {
+            swal({
+                title: 'Are you sure?',
+                icon: 'warning',
+                buttons: ["cancel", "logout"],
+            }).then((result) => {
+                if (result) {
+                    swal(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+    
+                    localStorage.removeItem("token");
+    
+                    location.href = "../../html/login.html";
+                }
+            }
+            )
+        }
+    </script>
+    
+    <script>
+        
+        const allBlog = async () => {
+            const response = await fetch(server + 'blog')
+            const data = await response.json();
+            data.allBlogs.forEach(blog => {
+                console.log(blog);
+                const title = blog.title;
+                const blogdescription = blog.blogdescription;
+                const blogimage = blog.blogimage;
+                const detail = blog.detail;
+                const date = blog.date;
+                const blogId = blog._id;
+                singleBlog(title, blogimage, blogdescription, detail, date, blogId);
+
+
+            });
+
+        }
+        allBlog();
+
+        function singleBlog(title, blogimage, blogdescription, detail, date, blogId) {
+            const parentItem = document.getElementById('parent-item');
+            const blogItem = document.createElement('div');
+            blogItem.classList.add("blog-item");
+
+            const singleBlog = `
+                            <div class="blog-photo">
+                                <img src="${blogimage}" alt="">
+                            </div>
+                            <div class="blog-details">
+                                <h2 class="title">${title}</h2>
+                                <p class="blog-descrption"> ${blogdescription}<a href="./readmore.html?${blogId}">Read more</a></p>
+                            </div> `
+            
+            blogItem.innerHTML = singleBlog;
+            parentItem.appendChild(blogItem);
+        } 
+    </script>
+
+</body>
+</html>

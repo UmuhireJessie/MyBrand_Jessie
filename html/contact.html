@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/skins/color-1.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Contact</title>
+</head>
+
+<body>
+    <div class="main-container">
+
+        <div class="hero">
+            <div class="logo">
+                <a href="#"><span>J</span>essie</a>
+            </div>
+            <div class="nav-toggler">
+                <span></span>
+            </div>
+            <ul class="nav">
+                <li><a href="/index.html">Home</a></li>
+                <li><a href="./about.html">About</a></li>
+                <li><a href="./portfolio.html">Portfolio</a></li>
+                <li><a href="./blog.html">Blog</a></li>
+                <li><a href="./contact.html" class="active">Contact</a></li>
+                <li id="login-btn"><a href="./login.html" class="tap-login">Login</a></li>
+                <li id="logout-btn"><a href="#" class="tap-login" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <section class="contact section">
+                <div class="container">
+                    <div class="row">
+                        <div class="section-title padd-15">
+                            <h2>Contact Me</h2>
+                        </div>
+                    </div>
+                    <h3 class="contact-title padd-15">Do you have any questions</h3>
+                    <h4 class="contact-sub-title padd-15">I am here for you</h4>
+                    <div class="row">
+                        <div class="contact-info-item padd-15">
+                            <div class="icon"><i class="fa fa-phone"></i></div>
+                            <h4>Call Me On</h4>
+                            <p>+250 7870 0000</p>
+                        </div>
+
+                        <div class="contact-info-item padd-15">
+                            <div class="icon"><i class="fa fa-envelope"></i></div>
+                            <h4>Email</h4>
+                            <p>jessie@gmail.com</p>
+                        </div>
+
+                        <div class="contact-info-item padd-15">
+                            <div class="icon"><i class="fa fa-linkedin"></i></div>
+                            <h4>LinkedIn</h4>
+                            <p>www.jessie.com</p>
+                        </div>
+
+                        <div class="contact-info-item padd-15">
+                            <div class="icon"><i class="fa fa-github"></i></div>
+                            <h4>Visit My Github</h4>
+                            <p>www.jessie.com</p>
+                        </div>
+                    </div>
+                    <h3 class="contact-title padd-15">SEND ME AN EMAIL</h3>
+                    <!-- <h4 class="contact-sub-title"></h4> -->
+
+                    <div class="row">
+                        <div class="contact-form padd-15">
+
+                            <form class="contactform">
+                                <div class="row">
+                                    <div class="form-item col-6 padd-15">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Name" id="name">
+                                        </div>
+                                    </div>
+                                    <div class="form-item col-6 padd-15">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Email" id="email">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-item col-12 padd-15">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Subject" id="subject">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-item col-12 padd-15">
+                                        <div class="form-group">
+                                            <textarea class="form-control" placeholder="Message"
+                                                id="message"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-item col-12 padd-15">
+                                        <button type="submit" class="btn">Send Message</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+    <script src="../js/script.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script>
+        function logout() {
+            swal({
+                title: 'Are you sure?',
+                icon: 'warning',
+                buttons: ["cancel", "logout"],
+            }).then((result) => {
+                if (result) {
+                    swal(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+    
+                    localStorage.removeItem("token");
+    
+                    location.href = "../../html/login.html";
+                }
+            }
+            )
+        }
+    </script>
+
+    <script>
+
+        const form = document.querySelector('.contactform')
+
+        async function getuserInfo(){
+                response = await fetch(server + "userinfo", {
+                    headers: {
+                        "Authorization": token,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json', 
+                    }
+                })
+                
+                const user = await response.json()
+
+                if (response.status == 200) {
+                    form.name.value = user.data.firstName + " " + user.data.lastName
+                    form.name.readOnly = true
+                    form.email.value = user.data.email
+                    form.email.readOnly= true
+                } else{
+                    form.name.readOnly = false
+                    form.email.readOnly = false
+                }
+            }
+
+        form.addEventListener('submit', async (e) => {
+            
+            e.preventDefault();
+
+            try {
+                const response = await fetch(server + "message", {
+                    method: 'POST',
+                    headers: {
+                        "Authorization": token,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: form.name.value,
+                        email: form.email.value,
+                        subject: form.subject.value,
+                        message: form.message.value
+                    })
+
+                }).catch(err => {
+                    console.log(err);
+                });
+                
+                const respMessage = await response.json({});
+            
+                if (response.status == 201) {
+                    swal("Great!", respMessage.message, "success")
+                        .then(() => {
+                            contactform.name.value = "";
+                            contactform.email.value = "";
+                            contactform.subject.value = "";
+                            contactform.message.value = "";
+                        })
+                } else if (response.status == 403) {
+
+                    swal({
+                        title: "Login is required",
+                        text: respMessage.message,
+                        icon: "error"
+                    })
+                        .then(() => {
+                            contactform.name.value = "";
+                            contactform.email.value = "";
+                            contactform.subject.value = "";
+                            contactform.message.value = "";
+                        })
+                }
+            } catch (error) {
+                console.log(error);
+            }
+
+
+        })
+        getuserInfo();
+
+    </script>
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <script src="../js/index.js"></script>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+  <!-- main container start-->
+  <div class="main-container">
+
+    <!-- Aside start -->
+    <div class="aside">
+      <div class="logo">
+        <a href="#"><span>J</span>essie</a>
+      </div>
+      <ul class="nav">
+        <li><a href="./index.html"><i class="fa fa-home"></i>Dashboard</a></li>
+        <li><a href="./add-blog.html"><i class="fa fa-blog"></i>Add Blog</a></li>
+        <li><a href="./edit-blog.html"><i class="fa fa-list"></i>Edit Blog</a></li>
+        <li><a href="./contact-message.html" class=active><i class="fa fa-phone"></i>Contact</a></li>
+      </ul>
+    </div>
+    <!-- Aside Ends -->
+
+    <!-- Main content start -->
+    <div class="main-content">
+      <!-- Home section start -->
+      <section class="home section">
+        <div class="hero shadow-dark">
+          <!-- <div class="nav-toggler">
+                        <span></span>
+                    </div> -->
+          <div class="logo">
+            <a href="#">Dashboard</a>
+          </div>
+
+          <ul class="dash-nav">
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="../../html/blog.html" class="active">Blog</a></li>
+            <li><a href="../../html/contact.html">Contact</a></li>
+            <li><a  class="active-login" onclick="logout()">Logout</a></li>
+
+          </ul>        
+
+        </div>
+        <div>
+          <table id="messages">
+            <thead>
+              <td>No</td>
+              <td>Name</td>
+              <td>Email</td>
+              <td>Subject</td>
+              <td>Message</td>
+              <td>Date</td>
+              <td>Action</td>
+            </thead>
+          </table>
+
+        </div>
+      </section>
+      <!-- Home section end -->
+    </div>
+    <!-- Main content end -->
+
+  </div>
+  <!-- main container end-->
+
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
+  <script>
+    function logout() {
+        swal({
+            title: 'Are you sure?',
+            icon: 'warning',
+            buttons: ["cancel", "logout"],
+        }).then((result) => {
+            if (result) {
+                swal(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+
+                localStorage.removeItem("token");
+
+                location.href = "../../html/login.html";
+            }
+        }
+        )
+    }
+</script>
+
+  <script>
+    async function getAllMessage() {
+                
+                response = await fetch( server + "message", {
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                        "Authorization": token
+                    },
+
+                } );
+                const datas = await response.json();
+                datas.data.forEach( el => {
+                    const DataName = el.name;
+                    const DataEmail = el.email;
+                    const Subject = el.subject;
+                    const Message = el.message;
+                    const DataDate = el.date;
+                    const DataId = el._id;
+
+                    
+
+                    AddNewData( DataName, DataEmail, Subject, Message, DataDate, DataId );
+                } );
+
+            }
+            let rowsNum = 0;
+            function AddNewData( DataName, DataEmail, Subject, Message, DataDate, DataId ) {
+                
+                const messageTr = document.querySelector( '#messages' );
+
+                var tr = document.createElement( 'tr' );
+                var tdNow = document.createElement( 'td' );
+                var tdName = document.createElement( 'td' );
+                var tdEmail = document.createElement( 'td' );
+                var tdSubject = document.createElement( 'td' );
+                var tdMessage = document.createElement( 'td' );
+                var tdDate = document.createElement( 'td' );
+                var tdAction = document.createElement( 'td' );
+                rowsNum += 1;
+
+                tdNow.innerHTML = rowsNum;
+                tdName.innerHTML = DataName;
+                tdEmail.innerHTML = DataEmail;
+                tdSubject.innerHTML = Subject;
+                tdMessage.innerHTML = Message;
+                tdDate.innerHTML = DataDate;
+
+                tdAction.innerHTML = `<a href="#" class="view" onclick='Reply()'>Reply</a>    <a href="#" class="delete" onclick="Delete(this.id)">Delete</a>`;
+               
+                tr.appendChild( tdNow );
+                tr.appendChild( tdName );
+                tr.appendChild( tdEmail );
+                tr.appendChild( tdSubject );
+                tr.appendChild( tdMessage );
+                tr.appendChild( tdDate );
+                tr.appendChild( tdAction );
+                messageTr.appendChild( tr );
+                const deleteForm = document.getElementById( "delete" );
+            }
+            getAllMessage(); 
+
+            
+          
+
+
+  </script>
+
+</body>
+
+</html>

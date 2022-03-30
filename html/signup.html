@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/skins/color-1.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="hero">
+            <div class="logo">
+                <a href="#"><span>J</span>essie</a>
+            </div>
+            <div class="nav-toggler">
+                <span></span>
+            </div>
+            <ul class="nav">
+                <li><a href="/index.html">Home</a></li>
+                <li><a href="./about.html">About</a></li>
+                <li><a href="./portfolio.html" class="active">Portfolio</a></li>
+                <li><a href="./blog.html">Blog</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+                <li id="login-btn"><a href="./login.html" class="tap-login">Login</a></li>
+                <li id="logout-btn"><a href="#" class="tap-login" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <!DOCTYPE html>
+            <html lang="en">
+
+            <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="stylesheet" href="../css/style.css">
+                <link rel="stylesheet" href="../css/skins/color-1.css">
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+                <link rel="stylesheet"
+                    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+                <title>Login</title>
+            </head>
+
+            <body>
+                <div class="main-container">
+                    <div class="hero">
+                        <div class="logo">
+                            <a href="#"><span>J</span>essie</a>
+                        </div>
+                        <div class="nav-toggler">
+                            <span></span>
+                        </div>
+                        <ul class="nav">
+                            <li><a href="/index.html">Home</a></li>
+                            <li><a href="./about.html">About</a></li>
+                            <li><a href="./portfolio.html">Portfolio</a></li>
+                            <li><a href="./blog.html">Blog</a></li>
+                            <li><a href="./contact.html">Contact</a></li>
+                            <li><a href="./login.html" class="active-login">Login</a></li>
+                        </ul>
+                    </div>
+                    <div class="main-content">
+                        <div class="main-content">
+                            <section class="login section">
+                                <div class="row">
+                                    <form class="login-form shadow-dark padd-15">
+                                        <h3 class="login-title">Sign up</h3>
+
+                                        <p class="heading-input">First Name</p>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="First name">
+                                        </div>
+
+                                        <p class="heading-input">Last Name</p>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Last name">
+                                        </div>
+
+                                        <p class="heading-input">Email</p>
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" placeholder="Enter email">
+                                        </div>
+
+                                        <p class="heading-input">Password</p>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" placeholder="Enter password">
+                                        </div>
+
+                                        <button type="submit" class="log padd-15">Signup</button>
+                                        <p class="signup-option padd-15">Already have an account? <a
+                                                href="./login.html">Login</a></p>
+                                    </form>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+
+                </div>
+
+                <script>
+
+                    const form = document.querySelector('#register-form');
+                    form.addEventListener('submit', async (e) => {
+                        e.preventDefault();
+                        const first_name = form.first_name.value;
+                        const last_name = form.last_name.value;
+                        const email = form.email.value;
+                        const password = form.password.value;
+                        const confirm_password = form.confirm_password.value;
+                        const user_name = form.user_name.value;
+                        //  Start Validation Lines
+                        if (first_name == '' || first_name == null) {
+                            document.getElementById('first_name_error').innerHTML = "First Name Required";
+                            form.first_name.classList.add('is-invalid');
+                            form.first_name.focus();
+                            return false;
+                        }
+                        else {
+                            form.first_name.classList.remove('is-invalid');
+                            document.getElementById('first_name_error').innerHTML = "";
+
+                            form.first_name.classList.add('is-valid');
+                        }
+                        if (last_name == '' || last_name == null) {
+                            document.getElementById('last_name_error').innerHTML = "Last Name Required";
+                            form.last_name.classList.add('is-invalid');
+                            form.last_name.focus();
+                            return false;
+                        }
+                        else {
+                            form.last_name.classList.remove('is-invalid');
+                            document.getElementById('last_name_error').innerHTML = "";
+
+                            form.last_name.classList.add('is-valid');
+                        }
+                        if (user_name == '' || user_name == null) {
+                            document.getElementById('user_name_error').innerHTML = "User Name Required";
+                            form.user_name.classList.add('is-invalid');
+                            form.user_name.focus();
+                            return false;
+                        }
+                        else {
+                            form.user_name.classList.remove('is-invalid');
+                            document.getElementById('user_name_error').innerHTML = "";
+
+                            form.user_name.classList.add('is-valid');
+                        }
+                        if (form.email.value == "" || form.email.value == null) {
+                            document.getElementById('email_error').innerHTML = "Email is required";
+                            form.email.classList.add('is-invalid');
+                            form.email.focus();
+
+                            return false;
+                        }
+                        else {
+                            form.email.classList.remove('is-invalid');
+                            document.getElementById('email_error').innerHTML = "";
+
+                            form.email.classList.add('is-valid');
+
+                        }
+                        var emailID = form.email.value;
+                        atpos = emailID.indexOf("@");
+                        dotpos = emailID.lastIndexOf(".");
+
+                        if (atpos < 1 || (dotpos - atpos < 2)) {
+                            document.getElementById('email_error').innerHTML = "Check your Email again!";
+                            form.email.classList.add('is-invalid');
+                            form.email.focus();
+                            return false;
+                        }
+                        else {
+                            form.email.classList.remove('is-invalid');
+                            document.getElementById('email_error').innerHTML = "";
+
+                        }
+                        if (password == '' || password == null) {
+                            document.getElementById('password_error').innerHTML = "Password Required";
+                            form.password.classList.add('is-invalid');
+                            form.password.focus();
+                            return false;
+                        }
+                        else {
+
+                            form.password.classList.remove('is-invalid');
+                            document.getElementById('password_error').innerHTML = "";
+
+
+                            form.password.classList.add('is-valid');
+                        }
+                        if (confirm_password == '' || confirm_password == null) {
+                            document.getElementById('confirm_password_error').innerHTML = "Confirm Password Required";
+                            form.confirm_password.classList.add('is-invalid');
+                            form.confirm_password.focus();
+
+                            return false;
+                        }
+                        else {
+                            form.confirm_password.classList.add('is-valid');
+                            form.confirm_password.classList.remove('is-invalid');
+                            document.getElementById('confirm_password_error').innerHTML = "";
+                        }
+                        if (
+                            password != confirm_password
+                        ) {
+
+                            swal('error', 'Confirm does not Match', 'error').then(() => {
+
+                                form.password.value = '';
+                                form.confirm_password.value = '';
+                                form.confirm_password.classList.remove('is-valid');
+                                form.password.classList.remove('is-valid');
+                            });
+                            form.password.focus();
+                            form.confirm_password.focus();
+                            return false;
+                        }
+                        try {
+                            const SignUp = await fetch(api + 'user', {
+                                method: 'POST',
+                                headers: {
+                                    'Accept': 'application/json',
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({
+                                    firstname: first_name,
+                                    lastname: last_name,
+                                    email: email,
+                                    password: password,
+                                    confirmpassword: confirm_password,
+                                    username: user_name
+                                })
+                            });
+                            response = await SignUp.json();
+                            if (SignUp.status == 400) {
+                                swal("Error", response.error, "error").then(() => {
+                                    form.email.value = "";
+                                    form.password.value = "";
+                                    form.confirm_password.value = '';
+                                    form.confirm_password.classList.remove('is-valid');
+                                    form.password.classList.remove('is-valid');
+                                    location.href = 'register.html';
+                                    form.first_name.classList.remove('is-invalid');
+                                    document.getElementById('first_name_error').innerHTML = "";
+                                    form.first_name.classList.add('is-valid');
+
+                                });
+
+                            }
+                            else if (SignUp.status == 400) {
+                                swal("Error", response.error, "error").then(() => {
+                                    form.email.value = "";
+                                    form.password.value = "";
+                                    form.confirm_password.value = '';
+                                    form.confirm_password.classList.remove('is-valid');
+                                    form.password.classList.remove('is-valid');
+                                    location.href = 'register.html';
+
+
+
+                                });
+                            }
+                            else if (SignUp.status == 201) {
+                                swal("Success", response.message, 'success').then(() => {
+
+                                    location.href = 'blog.html';
+                                    localStorage.setItem("token", "Bearer " + response.token);
+                                    localStorage.setItem("username", response.username);
+                                    localStorage.setItem("role", response.role);
+                                    localStorage.setItem("userId", response.userId);
+                                });
+                            }
+                        } catch (error) {
+
+                        }
+
+                    });
+
+                </script>
+
+
+            </body>
+
+            </html>

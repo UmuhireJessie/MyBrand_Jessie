@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="../js/index.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <!-- main container start-->
+    <div class="main-container">
+
+        <!-- Aside start -->
+        <div class="aside">
+            <div class="logo">
+                <a href="#"><span>J</span>essie</a>
+            </div>
+            <ul class="nav">
+                <li><a href="./index.html"><i class="fa fa-home"></i>Dashboard</a></li>
+                <li><a href="./add-blog.html" class=active><i class="fa fa-blog"></i>Add Blog</a></li>
+                <li><a href="./edit-blog.html"><i class="fa fa-list"></i>Edit Blog</a></li>
+                <li><a href="./contact-message.html"><i class="fa fa-phone"></i>Contact</a></li>
+            </ul>
+        </div>
+        <!-- Aside Ends -->
+
+        <!-- Main content start -->
+        <div class="main-content">
+            <!-- Home section start -->
+            <section class="home section">
+                <div class="hero shadow-dark">
+                    <!-- <div class="nav-toggler">
+                        <span></span>
+                    </div> -->
+                    <div class="logo">
+                        <a href="#">Dashboard</a>
+                    </div>
+
+                    <ul class="dash-nav">
+                        <li><a href="/index.html">Home</a></li>
+                        <li><a href="../../html/blog.html" class="active">Blog</a></li>
+                        <li><a href="../../html/contact.html">Contact</a></li>
+                        <li><a class="active-login" onclick="logout()">Logout</a></li>
+                    </ul>
+
+                    <!-- <div class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" onclick="dropdown_menu()"
+                        aria-haspopup="true" aria-expanded="false">
+                        <img src="../images/user.png" width="40px" height="40px" alt=" users">
+                        <span id="username"></span>
+                    </div> -->
+
+                    <!-- <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
+                        <span class="caret"></span></button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1" style="top:70%;">
+                          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Profile</a></li>
+                          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Logout</a></li>
+                        </ul>
+                    </div> -->
+
+                    <main>
+                        <div class="row ">
+                            <div class=" col-md-12">
+                                <div class="card">
+                                    <div class=" card-header">
+                                        New Blog
+                                    </div>
+
+                                    <div class="card-body">
+                                        <form action="post" id="form">
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <span class="text-danger" id="title-error"></span>
+                                                    <span class="label label-default">Blog Title <i
+                                                            class="text-danger">*</i></span>
+
+                                                    <input type="text" name="title" id="title" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <span class="text-danger" id="img-error"></span>
+
+                                                    <span class="label label-default">Blog Images<i
+                                                            class="text-danger">*</i></span>
+
+                                                    <input type="file" id="blogimage" class="form-control ">
+                                                </div>
+                                                <div class="form-group">
+                                                    <span class="text-danger" id="img-error"></span>
+
+                                                    <span class="label label-default">Blog Description<i
+                                                            class="text-danger">*</i></span>
+
+                                                    <input type="text" name="blogdescription" id="blogdescription"
+                                                        class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <span class="text-danger" id="description-error"></span>
+
+                                                    <span class="label label-default">Blog Detail<i
+                                                            class="text-danger">*</i></span>
+
+                                                    <textarea name="detail" id="detail" class="form-control " rows="5"
+                                                        required="required"></textarea>
+
+                                                </div>
+                                                <input type="submit" value="Save" class="btn btn-primary-1">
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+
+                </div>
+            </section>
+            <!-- Home section end -->
+        </div>
+        <!-- Main content end -->
+    </div>
+    <!-- main container end-->
+
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script>
+        function logout() {
+            swal({
+                title: 'Are you sure?',
+                icon: 'warning',
+                buttons: ["cancel", "logout"],
+            }).then((result) => {
+                if (result) {
+                    swal(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+
+                    localStorage.removeItem("token");
+
+                    location.href = "../../html/login.html";
+                }
+            }
+            )
+        }
+    </script>
+
+    <script>
+
+        const form = document.querySelector("#form");
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            var title = form.title.value;
+            var blogimage = form.blogimage.files[0];
+            var blogdescription = form.blogdescription.value;
+            var detail = form.detail.value;
+
+            console.log(blogimage);
+
+            try {
+                const formData = new FormData();
+                formData.append("title", title);
+                formData.append("blogimage", blogimage);
+                formData.append("blogdescription", blogdescription);
+                formData.append("detail", detail);
+
+                response = await fetch(server + "blog", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": token,
+                    },
+                    body: formData
+                });
+                const data = await response.json();
+                console.log(data);
+
+                swal("successfully added", data.message, "success")
+
+                form.title.value = "",
+                    blogimage = "",
+                    form.blogdescription.value = "",
+                    detail.innerHTML = ""
+            }
+            catch (error) {
+                console.log(error);
+            }
+
+        });
+
+    </script>
+
+
+
+</body>
+
+</html>
