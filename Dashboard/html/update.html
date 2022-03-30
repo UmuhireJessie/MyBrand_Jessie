@@ -139,11 +139,6 @@
                 buttons: ["cancel", "logout"],
             }).then((result) => {
                 if (result) {
-                    swal(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
 
                     localStorage.removeItem("token");
 
@@ -169,6 +164,7 @@
                 const data = await response.json();
                 blogInfo = data.blog;
                 console.log(blogInfo);
+                // console.log(blogInfo.blogdescription);
 
                 blogTitle.setAttribute('value', blogInfo.title);
                 blogImage.setAttribute('src', blogInfo.blogimage);
@@ -180,7 +176,7 @@
                 console.log(error);
             }
         }
-        
+
 
         updateForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -214,20 +210,21 @@
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        title: title,
-                        blogdescription: blogdescription,
-                        detail: detail
+                        title: updateForm.title,
+                        blogdescription: updateForm.blogdescription,
+                        detail: updateForm.detail
                     })
                 });
+                console.log(updateForm.blogdescription)
                 const message = await response.json();
                 if (response.ok == true) {
 
                     swal('The Blog', title + 'Has  been Update', 'success').then(() => {
-                        location.href = 'edit-blog.html';
+                        location.href = './edit-blog.html';
                     });
                 }
                 else {
-                    swal('Error', message.error, 'error');
+                    swal('Error', message.Message, 'error');
                 }
             }
 
@@ -239,7 +236,7 @@
                 formData.append("blogdescription", blogdescription);
                 formData.append("detail", detail);
 
-                response = await fetch(server + "blog-image/" + blogId, {
+                response = await fetch(server + "blogImage/" + blogId, {
                     method: "PATCH",
                     headers: {
                         "Authorization": token
@@ -247,18 +244,20 @@
                     body: formData
                 });
                 const message = await response.json();
+                console.log(message);
+                console.log(response);
                 if (response.ok == true) {
 
-                    swal('The blog', title + 'has  been updated', 'success').then(() => {
-                        location.href = 'edit-blog.html';
+                    swal('Updated!','The blog has been succefully updated', 'success').then(() => {
+                        location.href = './edit-blog.html';
                     });
                 }
                 else {
-                    swal('Error', message.error, 'error');
+                    swal('Error', message.Message, 'error');
                 }
             }
         })
-        
+
         updateBlog();
     </script>
 
